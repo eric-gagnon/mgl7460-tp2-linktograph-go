@@ -32,7 +32,7 @@ func ScrapFilesToCache(sourceLinks []string, cachefolderpath string) {
 				downloadFileForLink(link, cacheFilePath)
 				messages <- fmt.Sprintf("getFileFromLink finished for %s, starting order: %d", link, index)
 			} else {
-				messages <- fmt.Sprint("Skip downloadFileForLink, file already in cache.")
+				messages <- fmt.Sprintf("Skip downloadFileForLink, file already in cache : %s", link)
 			}
 
 		}(l, cacheFilePath, i)

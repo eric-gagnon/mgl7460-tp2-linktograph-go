@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html id="ie8" lang="en">
+<![endif]-->
+<!--[if !(IE 8)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>The Enduring Myth of the SPARQL Endpoint | Dave&#039;s Blog</title>
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="pingback" href="https://daverog.wordpress.com/xmlrpc.php" />
+<!--[if lt IE 9]>
+	<script src="https://s2.wp.com/wp-content/themes/pub/able/js/html5.js" type="text/javascript"></script>
+<![endif]-->
+
+<link rel='dns-prefetch' href='//s2.wp.com' />
+<link rel='dns-prefetch' href='//s1.wp.com' />
+<link rel='dns-prefetch' href='//s0.wp.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel='dns-prefetch' href='//s.pubmine.com' />
+<link rel='dns-prefetch' href='//x.bidswitch.net' />
+<link rel='dns-prefetch' href='//static.criteo.net' />
+<link rel='dns-prefetch' href='//ib.adnxs.com' />
+<link rel='dns-prefetch' href='//aax.amazon-adsystem.com' />
+<link rel='dns-prefetch' href='//bidder.criteo.com' />
+<link rel='dns-prefetch' href='//cas.criteo.com' />
+<link rel='dns-prefetch' href='//gum.criteo.com' />
+<link rel='dns-prefetch' href='//ads.pubmatic.com' />
+<link rel='dns-prefetch' href='//gads.pubmatic.com' />
+<link rel='dns-prefetch' href='//tpc.googlesyndication.com' />
+<link rel='dns-prefetch' href='//ad.doubleclick.net' />
+<link rel='dns-prefetch' href='//googleads.g.doubleclick.net' />
+<link rel='dns-prefetch' href='//www.googletagservices.com' />
+<link rel='dns-prefetch' href='//cdn.switchadhub.com' />
+<link rel='dns-prefetch' href='//delivery.g.switchadhub.com' />
+<link rel='dns-prefetch' href='//delivery.swid.switchadhub.com' />
+<link rel="alternate" type="application/rss+xml" title="Dave&#039;s Blog &raquo; Feed" href="https://daverog.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Dave&#039;s Blog &raquo; Comments Feed" href="https://daverog.wordpress.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Dave&#039;s Blog &raquo; The Enduring Myth of the SPARQL&nbsp;Endpoint Comments Feed" href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/feed/" />
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		function addLoadEvent(func) {
+			var oldonload = window.onload;
+			if (typeof window.onload != 'function') {
+				window.onload = func;
+			} else {
+				window.onload = function () {
+					oldonload();
+					func();
+				}
+			}
+		}
+		/* ]]> */
+	</script>
+			<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/wpcom-smileys\/twemoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s0.wp.com\/wp-content\/mu-plugins\/wpcom-smileys\/twemoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/s1.wp.com\/wp-includes\/js\/wp-emoji-release.min.js?m=1532082729h&ver=4.9.8"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='all-css-0-1' href='https://s0.wp.com/_static/??-eJx9kNEKwjAMRX/IGh1u4oP4LW0XZl2yhqVl7O/tFBGc7CXkhntySWAS4+OQcEjA2QjlLgwKk/jIRjkQzj9q71V38B+j0KPCA5NY35uXWtkdxe6bE8fWtgodRWdpa/WIZBO2RqKmH7WF+ThimbPYtDgY22CRkIttC2NpPtTS3ss5mzHvDzknI6qaUjlkNulegtbcewySHVhHCJpmwsV14+uxrk7n5nKo6scTqX+Z2Q==?cssminify=yes' type='text/css' media='all' />
+<link rel='stylesheet' id='droid-serif-css'  href='https://fonts.googleapis.com/css?family=Droid+Serif%3A400%2C700%2C400italic%2C700italic&#038;ver=4.9.8' type='text/css' media='all' />
+<link rel='stylesheet' id='all-css-2-1' href='https://s0.wp.com/_static/??-eJyNkNFuwjAMRX9omdWtdE9o3+IEEzycOGpcVfw9gW6CCqna273yuefBMBcXNBtlAztRogpl8oBeCDgHqHYRqm4uQdN7qPUNngZpckWmyLnCzIdIVoGmdtUzkxOcwSgVQWvSu+c/gqqBURw3ZF2WMUNWW45/YcsaSZ1oQGPNq+KOgjxuTUfyorHFCI16qlsjDDe5x/GRXvDfN596iKIe5QZ8p323+/gaPvuuH36ulLOXTA==?cssminify=yes' type='text/css' media='all' />
+<script type='text/javascript'>
+/* <![CDATA[ */
+var related_posts_js_options = {"post_heading":"h4"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s2.wp.com/_static/??-eJyFj90KwjAMhV/IrAw6xQvxWWoXS2r/bNoNfXo70At1KARCTr4cTsScgIJ2dUQWttW1Yr49W2d5I34B4MlkVbDzFF6wjqFgKAvr44kcQmXMyjStGZ3jCpciF4/MDVrZvkeiMBHOfzGLJSl9gYxM9y9XXyG5aiiwyOjaAyMsGT6mdnX0h17uh36Qcre1DyuucHk='></script>
+<link rel='stylesheet' id='all-css-0-2' href='https://s0.wp.com/wp-content/mu-plugins/highlander-comments/style.css?m=1530132353h&cssminify=yes' type='text/css' media='all' />
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='https://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563h&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://daverog.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://s1.wp.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='Ontologies in software: A conflict of&nbsp;interest?' href='https://daverog.wordpress.com/2013/05/30/ontologies-in-software-a-conflict-of-interest/' />
+<meta name="generator" content="WordPress.com" />
+<link rel="canonical" href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/" />
+<link rel='shortlink' href='https://wp.me/pAQPW-6q' />
+<link rel="alternate" type="application/json+oembed" href="https://public-api.wordpress.com/oembed/?format=json&amp;url=https%3A%2F%2Fdaverog.wordpress.com%2F2013%2F06%2F04%2Fthe-enduring-myth-of-the-sparql-endpoint%2F&amp;for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="https://public-api.wordpress.com/oembed/?format=xml&amp;url=https%3A%2F%2Fdaverog.wordpress.com%2F2013%2F06%2F04%2Fthe-enduring-myth-of-the-sparql-endpoint%2F&amp;for=wpcom-auto-discovery" />
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="The Enduring Myth of the SPARQL Endpoint" />
+<meta property="og:url" content="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/" />
+<meta property="og:description" content="It surprises me that the Semantic Technology industry still talks with great frequency about the &#8216;SPARQL Endpoint&#8217; (it&#8217;s come up a few times already at SemTech 2013). At best, a S…" />
+<meta property="article:published_time" content="2013-06-04T00:02:45+00:00" />
+<meta property="article:modified_time" content="2013-06-04T20:20:07+00:00" />
+<meta property="og:site_name" content="Dave&#039;s Blog" />
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:site" content="@wordpressdotcom" />
+<meta name="twitter:text:title" content="The Enduring Myth of the SPARQL&nbsp;Endpoint" />
+<meta name="twitter:card" content="summary" />
+<meta property="fb:app_id" content="249643311490" />
+<meta property="article:publisher" content="https://www.facebook.com/WordPresscom" />
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel="shortcut icon" type="image/x-icon" href="https://s1.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48" />
+<link rel="icon" type="image/x-icon" href="https://s1.wp.com/i/favicon.ico" sizes="16x16 24x24 32x32 48x48" />
+<link rel="apple-touch-icon-precomposed" href="https://s2.wp.com/i/webclip.png" />
+<link rel='openid.server' href='https://daverog.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='https://daverog.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="https://daverog.wordpress.com/osd.xml" title="Dave&#039;s Blog" />
+<link rel="search" type="application/opensearchdescription+xml" href="https://s1.wp.com/opensearch.xml" title="WordPress.com" />
+<meta name="theme-color" content="#fafafa" />
+		<style type="text/css">
+			body {
+				background-image: none;
+			}
+		</style>
+	<meta name="application-name" content="Dave&#039;s Blog" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-task" content="name=Subscribe;action-uri=https://daverog.wordpress.com/feed/;icon-uri=https://s1.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=https://s1.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=https://s1.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=https://s1.wp.com/i/favicon.ico" /><meta name="description" content="It surprises me that the Semantic Technology industry still talks with great frequency about the &#039;SPARQL Endpoint&#039; (it&#039;s come up a few times already at SemTech 2013). At best, a SPARQL Endpoint is useful as an ephemeral, unstable method to share your data. At worst, it is wasting the time and energy of providers and&hellip;" />
+<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #fafafa; }
+</style>
+			<script type="text/javascript">
+		function __ATA_CC() {var v = document.cookie.match('(^|;) ?personalized-ads-consent=([^;]*)(;|$)');return v ? 1 : 0;}
+		var __ATA_PP = { pt: 1, ht: 0, tn: 'able', amp: false, siteid: 8982, consent: __ATA_CC() };
+		var __ATA = __ATA || {};
+		__ATA.cmd = __ATA.cmd || [];
+		__ATA.criteo = __ATA.criteo || {};
+		__ATA.criteo.cmd = __ATA.criteo.cmd || [];
+		</script>
+		<script type="text/javascript" src="//s.pubmine.com/head.js" async></script><link rel="amphtml" href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/amp/"><style type="text/css" id="syntaxhighlighteranchor"></style>
+<script type="text/javascript">
+	window.google_analytics_uacct = "UA-52447-2";
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script>
+</head>
+
+<body class="post-template-default single single-post postid-398 single-format-standard custom-background mp6 customizer-styles-applied left-sidebar highlander-enabled highlander-light">
+<div id="page" class="hfeed site">
+	<div id="site-introduction">
+		<h1 class="site-title"><a href="https://daverog.wordpress.com/" title="Dave&#039;s Blog" rel="home">Dave&#039;s Blog</a></h1>
+		<h2 class="site-description"></h2>
+	</div><!-- #site-title -->
+	<div id="page-liner">
+		<header id="masthead" class="site-header" role="banner">
+			
+			<nav role="navigation" class="site-navigation main-navigation">
+				<h1 class="assistive-text">Menu</h1>
+				<div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+
+				<div class="menu"><ul>
+<li ><a href="https://daverog.wordpress.com/">Home</a></li><li class="page_item page-item-2"><a href="https://daverog.wordpress.com/about/">About</a></li>
+</ul></div>
+			</nav><!-- .site-navigation .main-navigation -->
+		</header><!-- #masthead .site-header -->
+
+		<div id="main">
+	<div id="primary" class="site-content">
+		<div id="content" role="main">
+
+		
+			
+<article id="post-398" class="post-398 post type-post status-publish format-standard hentry category-uncategorized tag-apis tag-linked-data tag-rest tag-scale tag-semantic-web tag-semtechbiz tag-sparql tag-sparql-endpoint">
+	<header class="entry-header">
+		<h1 class="entry-title">The Enduring Myth of the SPARQL&nbsp;Endpoint</h1>
+
+		<div class="entry-meta">
+			Posted on <a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/" title="12:02 am" rel="bookmark"><time class="entry-date" datetime="2013-06-04T00:02:45+00:00" pubdate>June 4, 2013</time></a><span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://daverog.wordpress.com/author/daverog/" title="View all posts by daverog" rel="author">daverog</a></span></span>		</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>It surprises me that the Semantic Technology industry still talks with great frequency about the &#8216;SPARQL Endpoint&#8217; (it&#8217;s come up a few times already at SemTech 2013). At best, a SPARQL Endpoint is useful as an ephemeral, unstable method to share your data. At worst, it is wasting the time and energy of providers and consumers of SPARQL endpoints due to the incompatible outcomes of <em>scale</em> and <em>availability</em>.</p>
+<p>But before I explain this position, let me outline my understanding of what a SPARQL Endpoint is:</p>
+<p><strong>A technical definition</strong>:</p>
+<ul>
+<li>An HTTP URL which accepts a SPARQL query and returns the results</li>
+<li>Can return a variety of serialisations: Turtle, RDF XML etc</li>
+</ul>
+<p><strong>The intention of SPARQL endpoints</strong></p>
+<ul>
+<li>Give other people and organisations access to your data in a very flexible way</li>
+<li>Eventually realise the potential of federated SPARQL whereby several SPARQL Endpoints are combined to allow complex queries to be run across a number of datasets</li>
+<li>They are open for use by a large and varied audience</li>
+</ul>
+<p>But what can SPARQL endpoints be used for? They are brilliant for hackdays, prototypes, experiments, toy projects etc. But I don&#8217;t think anything &#8216;real&#8217; could ever be built using one.</p>
+<p>There seems to be a cultural acceptance that SPARQL endpoints can be intermittently available, subject to rudimentary DOS attacks and have extremely long response times. This is no foundation for mass adoption of linked data technologies, and it certainly cannot form the fabric of web-based data infrastructure.</p>
+<p>I want linked data to gain mainstream popularity. It is a great language for expressing meaningful data and fostering collaboration with data. But to succeed, people need to be able to confidently consume linked data to build apps and services reliably. To build a business on linked data means you need a source of regularly updated and highly available data. This takes investment, by the provider of the data, in highly available, secure and scalable APIs. This is already happening of course, but the SPARQL Endpoint endures.</p>
+<h2>How do SPARQL endpoints perform?</h2>
+<p>I thought I&#8217;d put my criticisms of SPARQL endpoints to the test, so I tried a few, and here&#8217;s what happened&#8230;</p>
+<p>Note: the queries I have tried are intended to represent an intentional or accidental, rudimentary DOS attack. This is the kind of attack that a robust, open endpoint should be able to protect itself against.</p>
+<p>Firstly, only 52% of known SPARQL endpoints were available on <a href="http://labs.mondeca.com/sparqlEndpointsStatus/index.html" rel="nofollow">http://labs.mondeca.com/sparqlEndpointsStatus/index.html</a> I don&#8217;t know how representative that is, but it&#8217;s not a good start.</p>
+<p>Next, I tried some of the available ones, you&#8217;ll have to trust me that I picked these four at random&#8230;</p>
+<p><em>(Apologies to the providers of these endpoints, I am not singling you out, I am making a general point).</em></p>
+<h3><a href="http://pubmed.bio2rdf.org/sparql">http://pubmed.bio2rdf.org/sparql</a></h3>
+<p>It took 30 seconds for the query editor to load. I ran the query the suggested query, and it hung for around 2 minutes, and then I got</p>
+<pre>Virtuoso S1T00 Error SR171: Transaction timed out</pre>
+<h3><a href="http://sgd.bio2rdf.org/sparql">http://sgd.bio2rdf.org/sparql</a></h3>
+<p>It took 30 seconds for the query editor to load. The suggested query ran quickly. I changed it to:</p>
+<pre>SELECT * WHERE { ?s ?p ?o . }</pre>
+<p>The results came back quickly, but then the data stopped being streamed back and hung for over 5 minutes, before I stopped waiting.</p>
+<p>I then tried:</p>
+<pre>SELECT * WHERE { ?s ?p ?o . ?a ?b ?c . ?e ?f ?g . }</pre>
+<p>And got:</p>
+<pre>Virtuoso 42000 Error The estimated execution time -1308622848 (sec) exceeds the limit of 1000 (sec).</pre>
+<p>That&#8217;s an ugly error message, but at least there is a protection mechanism in-place.</p>
+<h3><a href="http://sparql.data.southampton.ac.uk">http://sparql.data.southampton.ac.uk</a></h3>
+<p>It worked fine for some friendly queries, but then I tried:</p>
+<pre>SELECT * WHERE { ?s ?p ?o . ?a ?b ?c . ?e ?f ?g . }</pre>
+<p>and got:</p>
+<pre>Error: Connection timed out after 30 seconds in ARC2_Reader missing stream in "getFormat" via ARC2_Reader missing stream in "readStream"</pre>
+<h3><a href="http://bnb.data.bl.uk/sparql">http://bnb.data.bl.uk/sparql</a></h3>
+<p>I ran this basic query when I started writing the blogpost:</p>
+<pre>SELECT * WHERE { ?s ?p ?o . }</pre>
+<p>It is still failing to load around 10 minutes later.</p>
+<p><strong>Update</strong>: it was pointed out that the above are all research projects, so I tried <a title="http://data.nature.com/query" href="http://t.co/M3m1DHyaqV" target="_blank" rel="nofollow">data.nature.com/query </a>and <a title="http://metis.bbyopen.com/sparql?query=" href="http://t.co/44dk7S9FtO" target="_blank" rel="nofollow">http://metis.bbyopen.com/sparql?query= too, and got similar results &#8211; connection reset and 60 second+ response times.</a></p>
+<h2>The incompatible aims of scale and availability</h2>
+<p>Whilst &#8220;premature optimisation is the root of all evil&#8221;, it would be reckless to build a software system that was fundamentally incapable of scaling. A SPARQL Endpoint is just such a system.</p>
+<p>SPARQL is a rich and expressive querying language, and like most querying languages, it is straightforward to write highly inefficient queries. Various SPARQL engines have mechanisms for protecting against inefficient queries: timeouts, limits to the number of triples returned, but most of these are blunt tools. Applying them gives the user a highly inconsistent experience. A SPARQL endpoint can also take no advantage of returning previously computed results based on knowledge about the data update frequency, or how out-of-date it is acceptable for the data to be.</p>
+<p>So if a SPARQL endpoint is ever intended to be successful, and have many (1000+) frequent consumers of data, and remain open to any SPARQL query, it is my opinion that it would be impossible to also have acceptable response times (&lt; 500ms) and reasonable availability (99.99%).</p>
+<p>There is a reason there are no &#8216;SQL Endpoints&#8217;.</p>
+<h2>What are the alternatives?</h2>
+<p>The main alternative to me is obvious: <strong>Open RESTful APIs</strong>:</p>
+<ul>
+<li>Open APIs can provide access to data in only the ways that will scale</li>
+<li>Open APIs can make generous use of caches to reduce the number of queries being run</li>
+<li>Open APIs can make use of creative additional ways to combine data from various sources, and hide this complexity from its users</li>
+<li>Open APIs can continue to provide legacy data structures even if the underlying data has changed. This is important to maintaining APIs over long periods of time.</li>
+</ul>
+<p>A second alternative is <strong>data dumps</strong>. These have limited use, because the data is often not useful until is has undergone processing or ingest into a SPARQL engine.</p>
+<p>A third alternative is a <strong>self-provisioned SPARQL endpoint</strong>. Cloud technologies are making this approach more viable. It would allow a potential data consumer to &#8216;spin-up&#8217; their own, personal SPARQL endpoint which would be pre-loaded with a periodically updated RDF data dump. This approach allows the provider to massively reduce the cost of supplying and maintaining the endpoint, and a consumer takes responsibility for the stability of their own SPARQL endpoint, without affecting any other consumers.</p>
+<div id="atatags-370373-5bd7d43cbc9b5">
+        <script type="text/javascript">
+            __ATA.cmd.push(function() {
+                __ATA.initVideoSlot('atatags-370373-5bd7d43cbc9b5', {
+                    sectionId: '370373',
+                    format: 'inread'
+                });
+            });
+        </script>
+    </div>		<div class="wpcnt">
+			<div class="wpa wpmrec">
+				<span class="wpa-about">Advertisements</span>
+				<div class="u">		<div style="padding-bottom:15px;width:300px;height:250px;float:left;margin-right:5px;margin-top:0px">
+		<div id="atatags-26942-5bd7d43cbc9fa">
+			<script type="text/javascript">
+			__ATA.cmd.push(function() {
+				__ATA.initSlot('atatags-26942-5bd7d43cbc9fa',  {
+					collapseEmpty: 'before',
+					sectionId: '26942',
+					width: 300,
+					height: 250
+				});
+			});
+			</script>
+		</div></div>		<div style="padding-bottom:15px;width:300px;height:250px;float:left;margin-top:0px">
+		<div id="atatags-114160-5bd7d43cbc9fd">
+			<script type="text/javascript">
+			__ATA.cmd.push(function() {
+				__ATA.initSlot('atatags-114160-5bd7d43cbc9fd',  {
+					collapseEmpty: 'before',
+					sectionId: '114160',
+					width: 300,
+					height: 250
+				});
+			});
+			</script>
+		</div></div></div>
+				
+			</div>
+		</div><div id="jp-post-flair" class="sharedaddy sd-like-enabled"><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-8782916-398-5bd7d43cbe93c' data-src='//widgets.wp.com/likes/index.html?ver=20180319#blog_id=8782916&amp;post_id=398&amp;origin=daverog.wordpress.com&amp;obj_id=8782916-398-5bd7d43cbe93c' data-name='like-post-frame-8782916-398-5bd7d43cbe93c'><h3 class='sd-title'>Like this:</h3><div class='likes-widget-placeholder post-likes-widget-placeholder' style='height: 55px;'><span class='button'><span>Like</span></span> <span class="loading">Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div>
+<div id='jp-relatedposts' class='jp-relatedposts' >
+	<h3 class="jp-relatedposts-headline"><em>Related</em></h3>
+</div></div>			</div><!-- .entry-content -->
+
+	<footer class="entry-meta">
+		This entry was tagged <a href="https://daverog.wordpress.com/tag/apis/" rel="tag">APIs</a>, <a href="https://daverog.wordpress.com/tag/linked-data/" rel="tag">linked data</a>, <a href="https://daverog.wordpress.com/tag/rest/" rel="tag">REST</a>, <a href="https://daverog.wordpress.com/tag/scale/" rel="tag">Scale</a>, <a href="https://daverog.wordpress.com/tag/semantic-web/" rel="tag">Semantic Web</a>, <a href="https://daverog.wordpress.com/tag/semtechbiz/" rel="tag">SemTechBiz</a>, <a href="https://daverog.wordpress.com/tag/sparql/" rel="tag">sparql</a>, <a href="https://daverog.wordpress.com/tag/sparql-endpoint/" rel="tag">SPARQL Endpoint</a>. Bookmark the <a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/" title="Permalink to The Enduring Myth of the SPARQL&nbsp;Endpoint" rel="bookmark">permalink</a>.
+			</footer><!-- .entry-meta -->
+</article><!-- #post-## -->
+
+				
+		<nav role="navigation" id="nav-below" class="site-navigation post-navigation">
+			<h1 class="assistive-text">Post navigation</h1>
+
+							<div class="nav-previous"><a href="https://daverog.wordpress.com/2013/05/30/ontologies-in-software-a-conflict-of-interest/" rel="prev"><span class="meta-nav">&larr;</span> Ontologies in software: A conflict of&nbsp;interest?</a></div>			
+					</nav><!-- #nav-below -->
+
+	
+			
+	<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+			27 thoughts on &ldquo;<span>The Enduring Myth of the SPARQL&nbsp;Endpoint</span>&rdquo;		</h2>
+
+		
+		<ol class="commentlist">
+				<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-134">
+		<article id="comment-134" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://0.gravatar.com/avatar/31ffca3f66c164a659c008aa7f247146?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn">Tom Grahame</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-134"><time pubdate datetime="2013-06-04T08:05:41+00:00">
+					June 4, 2013 at 8:05 am					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Heresy Dave! Perhaps? Surely if I have created my SPARQL endpoint I have reached the ultimate goal of opening my data, fulfilled my implementation and I can sit back and relax now?</p>
+<p>I&#8217;m being foolish of course. But I wouldn&#8217;t underestimate the appeal of such a thing.</p>
+<p>The reason there are no SQL endpoints is that relational systems still generally reside in a de facto closed data culture. In order to run SQL queries I have to have detailed knowledge of your highly optimised database, tables, joins and all, and then even if I am allowed it and the post processing overhead is worth the investment, it&#8217;s just easier for me to ask for your data. In csv for example.</p>
+<p>SPARQL on the other hand, by association to RDF &#8211; Linked Data &#8211; Linked Open Data, resides in an aspirationally open data culture where a SPARQL endpoint makes more sense.</p>
+<p>The real reason the endpoints you have specified do not work is that there is no concerted effort to have them fixed. As an aside, whilst the queries you ran are technically valid, they are far less efficient than providing a data dump, ie all of the data. I don&#8217;t believe that they are truly representative of a useful query.</p>
+<p>Which leads me to say &#8211; expressive SPARQL or not &#8211; I need to have an intrinsic knowledge of your data model to write useful queries. But rather more to the point &#8211; I actually have to want and use your data.</p>
+<p>So I think your point is valid, but the reasons are more cultural than technical. I worry that there is a critical mass of data need that we must reach for SPARQL endpoints to become sensible. But the problem is not that the critical mass is large, but we don&#8217;t know how large it is.</p>
+<p>Tom</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=134#respond' onclick='return addComment.moveForm( "comment-134", "134", "respond", "398" )' aria-label='Reply to Tom Grahame'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-daverog bypostauthor odd alt depth-2 highlander-comment" id="li-comment-137">
+		<article id="comment-137" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://1.gravatar.com/avatar/14952d286993256104c7fc2584b1ee47?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn">daverog</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-137"><time pubdate datetime="2013-06-04T15:11:21+00:00">
+					June 4, 2013 at 3:11 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Hi Tom,</p>
+<p>Heresy indeed! I guess I am being intentionally a bit provocative, as this sometimes helps. I do think SPARQL Endpoints play an important role in the development of ideas. I guess the main point is that too many people don&#8217;t realise that they&#8217;re going to have to be thrown away if your data becomes remotely popular.</p>
+<p>I take the cultural point with SQL. My analogy was a bit glib!</p>
+<p>And the &#8216;prior knowledge&#8217; point is a very good one, although high quality documentation and example uses could help mitigate this.</p>
+<p>I would say that the reasons are both cultural <strong>and</strong> technical. I think the technical reasons stand up.</p>
+<p>Dave</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=137#respond' onclick='return addComment.moveForm( "comment-137", "137", "respond", "398" )' aria-label='Reply to daverog'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="li-comment-135">
+		<article id="comment-135" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://0.gravatar.com/avatar/31b98ff0e8cd130bd1b18e81d71e4d2d?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn">Ken</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-135"><time pubdate datetime="2013-06-04T09:33:47+00:00">
+					June 4, 2013 at 9:33 am					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>For any kind of production-grade deployment you are looking at either regular data dumps (that&#8217;s what the BBC does) or a SPARQL endpoint with an SLA and access control attached to it. Using public SPARQL endpoints for production is an awful idea. But that&#8217;s also true for using any kind of public API (REST, SOAP, whatever). You can also implement caching and access control on SPARQL endpoints, so I am not seeing the benefit of moving to another kind of API. In fact, creating an API will limit the usefulness and the number of implementations for your data. It means that someone will sit down and think about what might be useful for other people and then limit the access by setting up the API. With SPARQL there&#8217;s really no limit to what you can query.</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=135#respond' onclick='return addComment.moveForm( "comment-135", "135", "respond", "398" )' aria-label='Reply to Ken'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-daverog bypostauthor odd alt depth-2 highlander-comment" id="li-comment-136">
+		<article id="comment-136" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://1.gravatar.com/avatar/14952d286993256104c7fc2584b1ee47?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn">daverog</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-136"><time pubdate datetime="2013-06-04T15:06:04+00:00">
+					June 4, 2013 at 3:06 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>The caching point is an interesting one.</p>
+<p>The reason I contrast is that I can&#8217;t see how a cache can be practically implemented on SPARQL endpoint: the expectation is that the data will be fresh, because you are making a query, and the flexibility of SPARQL means that queries to achieve the same results could be written in different ways (and therefore diluting the cache). But the most fundamental difference is the ability to use domain-informed caching timeouts in an API. If I ask for &#8216;latest, breaking news&#8217; I&#8217;d want a cache timeout of around 30 seconds, if I ask for &#8220;The top ten highest mountains in the world&#8221; I can probably live with a month-long cache.</p>
+<p>I would disgree that using public APIs in production is also an awful idea. There are several highly successful examples of public RESTful APIs. In fact, some companies have built their entire business on the idea (e.g. Mashery).</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=136#respond' onclick='return addComment.moveForm( "comment-136", "136", "respond", "398" )' aria-label='Reply to daverog'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-138">
+		<article id="comment-138" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://2.gravatar.com/avatar/b228a3a03c8530646b8c94c59c95302e?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn"><a href='http://www.snee.com/bobdc.blog' rel='external nofollow' class='url'>Bob DuCharme</a></cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-138"><time pubdate datetime="2013-06-04T15:54:34+00:00">
+					June 4, 2013 at 3:54 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>I have the same problem with SQL that you have with SPARQL. Whenever I do an SQL SELECT statement asking for all of the data in all of the tables in a particular database, It either takes forever or times out. Outrageous!</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=138#respond' onclick='return addComment.moveForm( "comment-138", "138", "respond", "398" )' aria-label='Reply to Bob DuCharme'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-daverog bypostauthor odd alt depth-2 highlander-comment" id="li-comment-142">
+		<article id="comment-142" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://1.gravatar.com/avatar/14952d286993256104c7fc2584b1ee47?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn">daverog</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-142"><time pubdate datetime="2013-06-06T05:57:36+00:00">
+					June 6, 2013 at 5:57 am					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>And I presume your SQL database has a public internet connection?</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=142#respond' onclick='return addComment.moveForm( "comment-142", "142", "respond", "398" )' aria-label='Reply to daverog'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="post pingback">
+		<p>Pingback: <a href='http://metarabbit.wordpress.com/2013/06/07/friday-links/' rel='external nofollow' class='url'>Friday Links | Meta Rabbit</a></p>
+	</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="li-comment-155">
+		<article id="comment-155" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://1.gravatar.com/avatar/1950cc2227b99d9f090a5b98b01dd418?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn"><a href='http://francart.fr' rel='external nofollow' class='url'>Thomas Francart</a></cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-155"><time pubdate datetime="2013-08-29T07:39:28+00:00">
+					August 29, 2013 at 7:39 am					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Hi ! some thoughts :</p>
+<p>1. Your test queries are fetching the entire content of the endpoint; the only acceptable answer of an endpoint to such queries is a timeout or an error.<br />
+2. Open APIs are all different : different parameters, different output formats. SPARQL + RDF standardize this to a standardized query language and standardized output/data formats; taking the best of both world it would make perfect sense for me to see &#8220;SPARQL Endpoints&#8221;/&#8221;Open APIs&#8221; accepting a limited subset of SPARQL as a query language, and returning RDF. These would perfectly fit with your Open APIs criterias (scaling, cache, combine data sources, providing legacy data), while still using linked data identifiers and (subset of) sparql query language, thus maximizing the reusability of this endpoint/API;<br />
+3. SQL databases require client drivers; SPARQL does not, since the protocol is also standardized;<br />
+4. I agree I would not put a system in production that rely on an external SPARQL datasource without having garantees that this datasource will scale enough for my system and will answer in acceptable response times; however these technologies also make perfect sense in the context of enterprise, internal, linked data. Using D2RQ server to open and share enterprise application data through SPARQL endpoints is now a common use case.</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=155#respond' onclick='return addComment.moveForm( "comment-155", "155", "respond", "398" )' aria-label='Reply to Thomas Francart'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-daverog bypostauthor odd alt depth-2 highlander-comment" id="li-comment-156">
+		<article id="comment-156" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://1.gravatar.com/avatar/14952d286993256104c7fc2584b1ee47?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn">daverog</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-156"><time pubdate datetime="2013-09-08T15:01:12+00:00">
+					September 8, 2013 at 3:01 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Hi Thomas, thanks for your feedback. I thought I&#8217;d respond to some of your points&#8230;.</p>
+<p>1) I would describe misleading errors and timeouts as generally unacceptable responses for a useful open service. The ideal response would be a meaningful error, indicating that the query is either too complex, or will use up the server resources and affect the experience of other queries being run. However, these types of query of hard to detect efficiently. Most errors seen above are as a result of problems executing the query, so the resources have already been used.</p>
+<p>2) Sometimes standardisation is in competition with the resiliency, efficiency and other pragmatic characteristics of a service. One conclusion of my blogpost would be that SPARQL, as a standard, creates the illusion that a web of interoperating services could be built by connecting various datasources together. The reality, in my opinion, is that SPARQL is too open a standard on which to build genuninely scalable web-based services. Sometimes standardisation is helpful, sometimes it is counter-productive.</p>
+<p>Perhaps your suggestion about sub-setting SPARQL could help with this, but I think that due to the complexity of the SPARQL Query Language, creating subsets that are generally useful would be challenging. If the subsets are a set of allowable templated queries, then this is getting close to the type of API I have been advocating.</p>
+<p>3) If, hypothetically, SQL was a consistently implemented, HTTP-based standard, my argument would remain the same. SQL is a sufficiently open and powerful query language for it to be a bad idea to expose access to it publically. So-called &#8216;integration in the database&#8217; where multple software systems connect to the same conceptual database using a general purpose query language is considered by many to be architectural anti-pattern. This is because the code of the calling system becomes bound to the structure of the SQL database, adding to the complexity of change.</p>
+<p>4) Following on from my previous point, I personally think that D2RQ or similar SQL-RDF technologies are generally not fit for purpose for agile software systems. You can get from zero to a working system rapidly, but binding your ontological models to the structure of a SQL database is not a good recipe for a longer-term evolving software system.</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=156#respond' onclick='return addComment.moveForm( "comment-156", "156", "respond", "398" )' aria-label='Reply to daverog'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-157">
+		<article id="comment-157" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://i0.wp.com/graph.facebook.com/538070920/picture?q=type%3Dlarge%26_md5%3D228bd77cc315c205451e24c846e97bbd&#038;resize=52%2C52' class='avatar avatar-52' height='52' width='52' />					<cite class="fn"><a href='https://www.facebook.com/kjekje' rel='external nofollow' class='url'>Kjetil Kjernsmo</a></cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-157"><time pubdate datetime="2013-09-12T20:25:26+00:00">
+					September 12, 2013 at 8:25 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>I think that you&#8217;re right in that RESTful data APIs is a much more fruitful direction to pursue in the short term, and in the long term also, I think that most likely, Linked Data applications will mostly use Hypermedia RDF, as I prefer to say.<br />
+Still, let me forward some critisism: First of all, there&#8217;s no myth. People are very aware of the shortcomings of SPARQL Endpoints. In fact, database people are coming with their &#8220;we tried this 30 years ago, and it didn&#8217;t work&#8221;, as they always do (don&#8217;t they&#8230;?) 😉 Mondeca has shown this problem in the blogosphere, and they have a paper on ISWC. Kai-Uwe Sattler&#8217;s database group has had papers on it on previous conferences, and yes, the complexity analysis has been done, and we know what will blow up. And like you, everyone who tries this get pretty much the same result. You can put up your own SPARQL endpoint, don&#8217;t make it public, and that works ok. And you can use some auxillary data from the LOD cloud, but you can&#8217;t rely on it for anything critical. Those who don&#8217;t know that already haven&#8217;t been paying attention. There&#8217;s no myth.<br />
+However, I think that SPARQL is still very strong for some use cases where you need to query a lot of data to drill down to a small result. Moreover, this is the web, there are ideological and societal reasons why we want to have it distributed. The reasons why the web is distributed still holds true for the semantic web. Now, I&#8217;m not going to try to convince you that you should give SPARQL another chance, as I do agree that hypermedia RDF is far more urgent, but I&#8217;ll justify why my main research topic is still SPARQL federation. And I feel good about it, despite what some of the best database people in the world are saying. 🙂<br />
+First of all, yes the current techniques to fend off attacks are blunt. But they don&#8217;t need to be, we just haven&#8217;t gone very far. In almost every database, there&#8217;s a cost estimation phase, and in that phase, one could do some statistics to estimate the chance of committing the error of rejecting a query that one would be able to answer, and the error of accepting a query that one wouldn&#8217;t be. And from there, it is normal risk management. It is clear that on a public endpoint, there are queries you will not answer, but they can be declared in the service description, and as such, you will give your users sufficient predictability. There&#8217;s a lot of nice research opportunities here. I wouldn&#8217;t at all dismiss it as out of hand.<br />
+Moreover, what you said about caching: &#8220;The reason I contrast is that I can’t see how a cache can be practically implemented on SPARQL endpoint&#8221;,  you should be really careful about using such arguments. It is a good example of an &#8220;Argument of Personal Incredulity&#8221;: <a href="http://rationalwiki.org/wiki/Argument_from_incredulity#Personal_incredulity" rel="nofollow">http://rationalwiki.org/wiki/Argument_from_incredulity#Personal_incredulity</a> and whenever you make such and argument, you should think: &#8220;Perhaps somebody else can?&#8221;. And the answer is &#8220;yes&#8221;. Just google it. 🙂 And that&#8217;s one of the things the database people didn&#8217;t have 30 years ago. They didn&#8217;t have an Internet full of caching proxies that cache HTTP messages. Now we have that, and it may help a lot.<br />
+Finally, while most of the SPARQL endpoints Mondeca/OKFN regularly queries have long response times for really simple queries, they must have done something fundamentally wrong somewhere in their HTTP stack. There&#8217;s just no focus on it. It must be really easy to fix. It can&#8217;t be that hard. Really. The harder parts is to accomodate for actual difficult queries.<br />
+I&#8217;m pretty sure it can be done, but it&#8217;ll take years. Hypermedia can be done today, so you are on the right track!</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=157#respond' onclick='return addComment.moveForm( "comment-157", "157", "respond", "398" )' aria-label='Reply to Kjetil Kjernsmo'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-daverog bypostauthor odd alt depth-2 highlander-comment" id="li-comment-161">
+		<article id="comment-161" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://1.gravatar.com/avatar/14952d286993256104c7fc2584b1ee47?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn">daverog</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-161"><time pubdate datetime="2013-09-17T20:26:27+00:00">
+					September 17, 2013 at 8:26 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Thank you for this great response, sorry I took so long to approve it. </p>
+<p>Just a couple of niggles:</p>
+<p>I standby my caching point, but I didn&#8217;t make it clear enough. So instead&#8230;</p>
+<p>I can&#8217;t see how a cache can mitigate denial of service attacks on a SPARQL endpoint when the language remains open-ended and is therefore subject to the creation of infinitly variable queries. (I googled this to no avail, so the argument from incredulity stands right?)</p>
+<p>Also, I accept that it is not a universally accepted myth, but some of responses to the post make me think that there&#8217;s still a fair number of people who buy it.</p>
+<p>Dave</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=161#respond' onclick='return addComment.moveForm( "comment-161", "161", "respond", "398" )' aria-label='Reply to daverog'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment even depth-3 highlander-comment" id="li-comment-165">
+		<article id="comment-165" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://i0.wp.com/graph.facebook.com/538070920/picture?q=type%3Dlarge%26_md5%3D228bd77cc315c205451e24c846e97bbd&#038;resize=52%2C52' class='avatar avatar-52' height='52' width='52' />					<cite class="fn"><a href='https://www.facebook.com/kjekje' rel='external nofollow' class='url'>Kjetil Kjernsmo</a></cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-165"><time pubdate datetime="2013-09-18T09:59:37+00:00">
+					September 18, 2013 at 9:59 am					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Thanks for the response, Dave! I think your argument has some merit, even though an argument from incredulity cannot ever be valid. 🙂 You could probably prove that an open-ended language, if left open-ended by the endpoint, cannot peruse a cache efficiently. But there are too many assumptions in there when it comes to the real world. One is that we wouldn&#8217;t probably let it be open-ended. Another is that you can cache parts of the query (4store does this with great effect, I&#8217;ve seen a factor of 50 improved responses on a SPARQL query with an OPTIONAL clause compared to one previous without). Without having done it, I could imagine utilizing ETags to do the same on the open Web. Then comes the factor that many is likely to query the same things, leading to further opportunities for caching. There are some stuff you can do. You probably can&#8217;t defeat a DoS attack, like you can by just putting Varnish in front a small, seldom-changing hypermedia API, you&#8217;d have to limit what the endpoint can return to do that.<br />
+However, if you get to some of the use cases I work on, I think a hypermedia system will soon run into worse problems than SPARQL endpoints. For example: Find me a romantic weekend getaway for a couple somewhere in Europe (well, the query has to be made more explicit than that, but the basic idea is there). If, for some reason, the one started by interpreting &#8220;romantic&#8221; and Europe, you&#8217;d be lucky, there are probably just a handful that has been named so in some resources that may act as your starting point. But say that you&#8217;re not so fortunate, your system starts at your airport, finds all flights that go to certain cities within a short time frame, and within these cities, look into the hotels that have a good rating for couples on TripAdvisor or something. Already there, you&#8217;d have retrieved so many resources that SPARQL would probably have been better at it, even though caching could still play a decent role. But it gets only worse when the system starts to inquire about availability and time schedules. Then you get frequently updated information, so caching won&#8217;t help a lot.<br />
+Actually, <a href="http://yr.no/" rel="nofollow">http://yr.no/</a> has something like this problem. They publish weather forecasts several times a day for 8 million places around the world (using for every place in Geonames, etc.). They get a lot of traffic on single resources, so caching helps them very little. So, in such cases, you have pretty much the same problem as with a SPARQL query: So much variability that it really helps little.<br />
+At this point, you have arrived at one of the main problems that databases are good at: Selectivity estimation so that you can limit the number of GET requests very early. Basically, a hypermedia app must look up Romantic first, then the time schedules for flights to constrain the number of possible cities within your given time constraints, then look up some hotels within the relatively small number of hotels. This is a pretty difficult problem. There&#8217;s a lot of good and implemented theory for it when it comes to single databases. It is much more difficult for federated queries (which is what I&#8217;m working on) but for hypermedia systems, it is really, really hard. If you do it wrong, I would guess you&#8217;d end up with millions of GET requests for a simple question like the above.<br />
+I think hypermedia systems should focus on cases where the scope of the query is pretty constrained from the start. Like, if you can start with a human readable page about Romantic getaways, you&#8217;d have much more luck. It might just work to power that by a small number of GET requests to RDF resources to help plan that.<br />
+But there are plenty of cases where your questions are open-ended, or rather open-beginned, and that&#8217;s where I think SPARQL is a much more promising direction, because then you have the selectivity problems up front and you can deal with them. Though, I fear that the problem is actually so difficult it&#8217;ll take a long time to get there. Like decades&#8230; And then, you could argue that narrow-start hypermedia systems would have been a better use of one&#8217;s time on earth&#8230; 😉</p>
+</div>
+
+			<div class="reply">
+							</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment odd alt thread-odd thread-alt depth-1 highlander-comment" id="li-comment-158">
+		<article id="comment-158" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://i2.wp.com/a0.twimg.com/profile_images/317722128/n699857188_298910_8649_normal.jpg?resize=52%2C52' class='avatar avatar-52' height='52' width='52' />					<cite class="fn"><a href='http://twitter.com/pgroth' rel='external nofollow' class='url'>Paul Groth (@pgroth)</a></cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-158"><time pubdate datetime="2013-09-13T20:21:16+00:00">
+					September 13, 2013 at 8:21 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Hi Dave,</p>
+<p>We successfully use SPARQL to back stable APIs over large datasets (see <a href="http://dev.openphacts.org" rel="nofollow">http://dev.openphacts.org</a>).  SPARQL and triple stores have made it simpler for us to implement a flexible data integration system. However, we use it in the backend because it&#8217;s  difficult to a) keep a system endpoint up with arbitrary queries and b) get developers to write performant queries because of the flexibility of the language. As one database expert told me, she loves SPARQL for writing queries &#8211; she hates it for optimization</p>
+<p>I think SPARQL has its place. One needs pick and chose the right set of components from any technology stack (including the semantic web) to do the job. </p>
+<p>Finally, one thing to say  for SPARQL as a standard is it does allow easy comparison and swapping out of graph stores. Such vendor independence is useful.</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=158#respond' onclick='return addComment.moveForm( "comment-158", "158", "respond", "398" )' aria-label='Reply to Paul Groth (@pgroth)'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-159">
+		<article id="comment-159" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://1.gravatar.com/avatar/74299d32f683e43dd6abb4107c67aa74?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn"><a href='http://gravatar.com/rpbouman' rel='external nofollow' class='url'>Roland Bouman</a></cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-159"><time pubdate datetime="2013-09-13T23:58:28+00:00">
+					September 13, 2013 at 11:58 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>It seems to me this post is arguing about the wrong problem. </p>
+<p>Two observations are mentioned: there is an observation that many (actually the majority) of the SPARQL services simply aren&#8217;t available, and the other observation is that the ones that are fail to deliver for a particular kind of query. </p>
+<p>From these observations, the conclusion is drawn that SPARQL endpoints are not feasible in general (at least not under the -reasonable- requirements of availability and response time).</p>
+<p>It seems to me this is a false conclusion, or at best, premature. </p>
+<p>From a practical point of view I agree that these observations do not paint a favorable picture of SPARQL endpoints in general, but in order to draw this conclusion, more data is needed indicating why these endpoints aren&#8217;t available or fail to deliver. Alternatively, one could attempt to show that SPARQL and SPARQL endpoints have intrinsic flaws that explain lack of availability and bad response times. However, the article does no such thing.</p>
+<p>Instead, an alternative way to access linked data is proposed using &#8220;Open RESTful APIs&#8221;. To me this suggestion seems to generate more questions than answers. </p>
+<p>The article seems to assume that &#8220;Open RESTful APIs&#8221; are intrinsically more available and have better response times than SPARQL endpoints in general. However, no argument is given as to why that should be the case. Secondly, &#8220;Open RESTful API&#8221; sounds like a protocol, whereas SPARQL sounds like a language. I would argue that the many of the benefits of &#8220;SPARQL endpoints&#8221; have to do with the language SPARQL. If you&#8217;re not specifying an alternative language that these &#8220;Open RESTful APIs&#8221; would provide, it is impossible to choose against SPARQL.</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=159#respond' onclick='return addComment.moveForm( "comment-159", "159", "respond", "398" )' aria-label='Reply to Roland Bouman'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-daverog bypostauthor odd alt depth-2 highlander-comment" id="li-comment-160">
+		<article id="comment-160" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://1.gravatar.com/avatar/14952d286993256104c7fc2584b1ee47?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn">daverog</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-160"><time pubdate datetime="2013-09-17T20:14:57+00:00">
+					September 17, 2013 at 8:14 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Hi Roland,</p>
+<p>I would argue that SPARQL endpoints won&#8217;t scale precisely because they use SPARQL, a language. Languages are inherently flexibly tools; they are expressive. It is this expressivity that gives the user of a language the power to perform a huge variety of denial of service attacks on a SPARQL endpoint. REST APIs are a bit more like a protocol, although I would describe them as a service. Services are typically limited to offering only that which the service provider is capable of offering in a sustainable manner.</p>
+<p>Dave</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=160#respond' onclick='return addComment.moveForm( "comment-160", "160", "respond", "398" )' aria-label='Reply to daverog'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment byuser comment-author-rpbouman even thread-odd thread-alt depth-1 highlander-comment" id="li-comment-162">
+		<article id="comment-162" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://1.gravatar.com/avatar/74299d32f683e43dd6abb4107c67aa74?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn">rpbouman</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-162"><time pubdate datetime="2013-09-17T20:36:16+00:00">
+					September 17, 2013 at 8:36 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Hi Dave, thanks for the reply! </p>
+<p>You make a fair point about how the expressiveness of the language can pose challenges; however, this problem has been solved already by paging the results. I don&#8217;t think SPARQL defines that within the language itself, but that could be a property of the service through which you execute the SPARQL requests.</p>
+<p>With regard to REST APIs being immune to that: I don&#8217;t agree &#8211; or at least, I think it is a matter of implementation. A Typical REST example includes a &#8220;list&#8221; operation. It seems to me that such an operation, without any restrictions or paging, leads to exactly the same issues. (Which can be solved by exactly the same solutions too).</p>
+<p>Anyway &#8211; I don&#8217;t want to drag this on just for the sake of discussion. I think you&#8217;re right in the sense that it is much more complex to build an efficient and performant query engine like one would need for SPARQL as compared to a more low level data access API. In that sense there is a practical limit, and perhaps your proposal to use REST API&#8217;s instead will solve that or at least offer less of a limitation. But I do not think it is correct to categorically state that this is the fault of SPARQL as language. </p>
+<p>kind regards,</p>
+<p>Roland</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=162#respond' onclick='return addComment.moveForm( "comment-162", "162", "respond", "398" )' aria-label='Reply to rpbouman'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-daverog bypostauthor odd alt depth-2 highlander-comment" id="li-comment-163">
+		<article id="comment-163" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://1.gravatar.com/avatar/14952d286993256104c7fc2584b1ee47?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn">daverog</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-163"><time pubdate datetime="2013-09-17T20:56:12+00:00">
+					September 17, 2013 at 8:56 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Thanks again Roland, I agree with your closing comment, as in the post, I intented to make a distinction between SPARQL the query language, and SPARQL endpoints (the full HTTP specification of SPARQL).</p>
+<p>Also, do consider that pagination does not solve the problem of query complexity. With enough data, it is straightforward to write inefficient or complex SPARQL that returns only a few results.</p>
+<p>Dave</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=163#respond' onclick='return addComment.moveForm( "comment-163", "163", "respond", "398" )' aria-label='Reply to daverog'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="post pingback">
+		<p>Pingback: <a href='http://francart.fr/video-parodiquedbpedia-et-services-sparql/' rel='external nofollow' class='url'>Vidéo parodique sur la disponibilité de DBPedia &#8211; et les services SPARQL | Thomas Francart</a></p>
+	</li><!-- #comment-## -->
+	<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-352">
+		<article id="comment-352" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://2.gravatar.com/avatar/5de5c0912d33f7d91aea6335c8eeaa9b?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn"><a href='http://www.cognitum.eu' rel='external nofollow' class='url'>Alessandro Seganti</a></cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-352"><time pubdate datetime="2015-05-08T10:27:05+00:00">
+					May 8, 2015 at 10:27 am					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Very good point!<br />
+We actually arrived to a very similar solution at Cognitum and our Semantic Server database (Ontorion) is wrapping an SPARQL endpoint (and much more) in an API. So you can make SPARQL queries but also other type of queries only through the API. This gives us the possibility to speed up response time and also to manage the possible queries that are executed.</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=352#respond' onclick='return addComment.moveForm( "comment-352", "352", "respond", "398" )' aria-label='Reply to Alessandro Seganti'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-daverog bypostauthor odd alt depth-2 highlander-comment" id="li-comment-353">
+		<article id="comment-353" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://1.gravatar.com/avatar/14952d286993256104c7fc2584b1ee47?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn">daverog</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-353"><time pubdate datetime="2015-05-08T12:05:06+00:00">
+					May 8, 2015 at 12:05 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>I&#8217;m glad this still holds true in 2015!</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=353#respond' onclick='return addComment.moveForm( "comment-353", "353", "respond", "398" )' aria-label='Reply to daverog'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="li-comment-364">
+		<article id="comment-364" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://1.gravatar.com/avatar/7b9e7e586a133fad435866986b04e0f9?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn"><a href='http://www.lesliesikos.com' rel='external nofollow' class='url'>Leslie</a></cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-364"><time pubdate datetime="2015-07-04T05:29:14+00:00">
+					July 4, 2015 at 5:29 am					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>While sometimes you might experience problems with the SPARQL endpoints, the real frustration is the issue with the long-term availability of the default graph/LOD dataset behind the endpoints. If you check the LOD Cloud Diagram and the Datahub.io registrations of the LOD Cloud datasets, a large share of them is not available anymore.</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=364#respond' onclick='return addComment.moveForm( "comment-364", "364", "respond", "398" )' aria-label='Reply to Leslie'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+	<li class="post pingback">
+		<p>Pingback: <a href='https://data.blog.gov.uk/2016/10/28/technical-features-of-a-register/' rel='external nofollow' class='url'>Technical features of a register | Data in government</a></p>
+	</li><!-- #comment-## -->
+	<li class="comment odd alt thread-even depth-1 highlander-comment" id="li-comment-448">
+		<article id="comment-448" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://i0.wp.com/lh3.googleusercontent.com/-68Jp-jHGYF8/AAAAAAAAAAI/AAAAAAAAACo/mRj2OTMYKgM/photo.jpg?resize=52%2C52&#038;ssl=1' class='avatar avatar-52' height='52' width='52' />					<cite class="fn"><a href='https://plus.google.com/114213050941056094660' rel='external nofollow' class='url'>Mason Davis</a></cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-448"><time pubdate datetime="2016-10-31T14:13:37+00:00">
+					October 31, 2016 at 2:13 pm					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>OK &#8211; agreed. The other point about SPARQL is the lack of available client-side tooling.</p>
+<p>However, SPARQL does give a degree of standardisation that is not present within the emerging API infrastructure which I think the above objections have likely alluded to.</p>
+<p>Whilst the establishment of standards for *data* is becoming understood within the community, I feel that we are generally stuck with a blind spot regarding the *APIs* themselves. Generally the strategy seems to be “roll your own” when it comes to RESTful APIs and this approach is not surprising when many big commercial players themselves also do the same thing (e.g. <a href="https://dev.twitter.com/rest/public" rel="nofollow">https://dev.twitter.com/rest/public</a> and <a href="https://data.police.uk/docs/" rel="nofollow">https://data.police.uk/docs/</a> )</p>
+<p>This means that you need to be a developer before you get started with the data…not bad if you are creating jobs for developers, but not so good if you are interfacing directly with data scientists.</p>
+<p>The Geo community seems to be more aware of this and there are both standards and client tools ready to exploit geographic data endpoints without developer capability needed. They seem to be ahead of the general non-geographic data community in their understanding?</p>
+<p>As a result, here in Wales we adopted OData as the API service for <a href="http://statswales.gov.wales" rel="nofollow">http://statswales.gov.wales</a> (open a cube view, go down to the bottom and link to the data using the open data tab).</p>
+<p>Also have a look here: <a href="https://en.wikipedia.org/wiki/Open_Data_Protocol" rel="nofollow">https://en.wikipedia.org/wiki/Open_Data_Protocol</a></p>
+<p>The standard originated from Microsoft (so can be used by an awful lot of users already) but has now been given to OASIS to hopefully remove some of the concerns regarding vendor lock in etc.</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=448#respond' onclick='return addComment.moveForm( "comment-448", "448", "respond", "398" )' aria-label='Reply to Mason Davis'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+	<li class="comment even thread-odd thread-alt depth-1 highlander-comment" id="li-comment-621">
+		<article id="comment-621" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://0.gravatar.com/avatar/30aba436dc074cf6a695ed5b4db0035d?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn">Michael Schmidt</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-621"><time pubdate datetime="2017-11-30T08:37:54+00:00">
+					November 30, 2017 at 8:37 am					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>The Wiki Data Query Service (<a href="https://query.wikidata.org/" rel="nofollow">https://query.wikidata.org/</a>) kind of proves that, with a reasonable effort (spent by the WMF), it is possible to provide useful and public SPARQL endpoints.</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=621#respond' onclick='return addComment.moveForm( "comment-621", "621", "respond", "398" )' aria-label='Reply to Michael Schmidt'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	<ul class="children">
+	<li class="comment byuser comment-author-daverog bypostauthor odd alt depth-2 highlander-comment" id="li-comment-622">
+		<article id="comment-622" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='https://1.gravatar.com/avatar/14952d286993256104c7fc2584b1ee47?s=52&#038;d=identicon&#038;r=G' class='avatar avatar-52' height='52' width='52' />					<cite class="fn">daverog</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#comment-622"><time pubdate datetime="2017-11-30T10:06:20+00:00">
+					November 30, 2017 at 10:06 am					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Hi Michael, I ran the query SELECT * WHERE { ?s ?p ?o . } as I did in the blogpost. I received the error &#8220;Server error: Unexpected end of JSON input&#8221;. This is the most trivial of examples for putting stress on a SPARQL query, and it failed. The blogpost tries to explain that the engineering challenge of scaling SPARQL is unachievable without reducing the utility of SPARQL. I feel the myth is still enduring. Dave</p>
+</div>
+
+			<div class="reply">
+				<a rel='nofollow' class='comment-reply-link' href='https://daverog.wordpress.com/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/?replytocom=622#respond' onclick='return addComment.moveForm( "comment-622", "622", "respond", "398" )' aria-label='Reply to daverog'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li><!-- #comment-## -->
+</ul><!-- .children -->
+</li><!-- #comment-## -->
+		</ol><!-- .commentlist -->
+
+		
+	
+	
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/#respond" style="display:none;">Cancel reply</a></small></h3>			<form action="https://daverog.wordpress.com/wp-comments-post.php" method="post" id="commentform" class="comment-form">
+				<input type="hidden" id="highlander_comment_nonce" name="highlander_comment_nonce" value="258ee6302e" /><input type="hidden" name="_wp_http_referer" value="/2013/06/04/the-enduring-myth-of-the-sparql-endpoint/" />
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest" />
+
+<div class="comment-form-field comment-textarea">
+	<label for="comment">Enter your comment here...</label>
+	<div id="comment-form-comment"><textarea id="comment" name="comment" title="Enter your comment here..."></textarea></div>
+</div>
+
+<div id="comment-form-identity">
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" class="nascar-signin-link"
+                   title="Login via Guest">
+									</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:WordPress.com" id="postas-wordpress" class="nascar-signin-link"
+                   title="Login via WordPress.com">
+					<svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24" ><rect x="0" fill="none" width="24" height="24"/><g><path fill="#0087be" d="M12.158 12.786l-2.698 7.84c.806.236 1.657.365 2.54.365 1.047 0 2.05-.18 2.986-.51-.024-.037-.046-.078-.065-.123l-2.762-7.57zM3.008 12c0 3.56 2.07 6.634 5.068 8.092L3.788 8.342c-.5 1.117-.78 2.354-.78 3.658zm15.06-.454c0-1.112-.398-1.88-.74-2.48-.456-.74-.883-1.368-.883-2.11 0-.825.627-1.595 1.51-1.595.04 0 .078.006.116.008-1.598-1.464-3.73-2.36-6.07-2.36-3.14 0-5.904 1.613-7.512 4.053.21.008.41.012.58.012.94 0 2.395-.114 2.395-.114.484-.028.54.684.057.74 0 0-.487.058-1.03.086l3.275 9.74 1.968-5.902-1.4-3.838c-.485-.028-.944-.085-.944-.085-.486-.03-.43-.77.056-.742 0 0 1.484.114 2.368.114.94 0 2.397-.114 2.397-.114.486-.028.543.684.058.74 0 0-.488.058-1.03.086l3.25 9.665.897-2.997c.456-1.17.684-2.137.684-2.907zm1.82-3.86c.04.286.06.593.06.924 0 .912-.17 1.938-.683 3.22l-2.746 7.94c2.672-1.558 4.47-4.454 4.47-7.77 0-1.564-.4-3.033-1.1-4.314zM12 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></g></svg>				</a>
+			</li>
+			<li>
+			<iframe id="googleplus-sign-in" name="googleplus-sign-in" src="https://public-api.wordpress.com/connect/?googleplus-sign-in=https%3A%2F%2Fdaverog.wordpress.com&#038;color_scheme=light" width="24" height="24" scrolling="no" allowtransparency="true" seamless="seamless" frameborder="0"></iframe>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" class="nascar-signin-link"
+                   title="Login via Twitter">
+					<svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24" ><rect x="0" fill="none" width="24" height="24"/><g><path fill="#1DA1F2" d="M22.23 5.924c-.736.326-1.527.547-2.357.646.847-.508 1.498-1.312 1.804-2.27-.793.47-1.67.812-2.606.996C18.325 4.498 17.258 4 16.078 4c-2.266 0-4.103 1.837-4.103 4.103 0 .322.036.635.106.935-3.41-.17-6.433-1.804-8.457-4.287-.353.607-.556 1.312-.556 2.064 0 1.424.724 2.68 1.825 3.415-.673-.022-1.305-.207-1.86-.514v.052c0 1.988 1.415 3.647 3.293 4.023-.344.095-.707.145-1.08.145-.265 0-.522-.026-.773-.074.522 1.63 2.038 2.817 3.833 2.85-1.404 1.1-3.174 1.757-5.096 1.757-.332 0-.66-.02-.98-.057 1.816 1.164 3.973 1.843 6.29 1.843 7.547 0 11.675-6.252 11.675-11.675 0-.178-.004-.355-.012-.53.802-.578 1.497-1.3 2.047-2.124z"/></g></svg>				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" class="nascar-signin-link"
+                   title="Login via Facebook">
+					<svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24" ><rect x="0" fill="none" width="24" height="24"/><g><path fill="#3B5998" d="M20.007 3H3.993C3.445 3 3 3.445 3 3.993v16.013c0 .55.445.994.993.994h8.62v-6.97H10.27V11.31h2.346V9.31c0-2.325 1.42-3.59 3.494-3.59.993 0 1.847.073 2.096.106v2.43h-1.438c-1.128 0-1.346.537-1.346 1.324v1.734h2.69l-.35 2.717h-2.34V21h4.587c.548 0 .993-.445.993-.993V3.993c0-.548-.445-.993-.993-.993z"/></g></svg>				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Gravatar" width="25" class="no-grav" />
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="required">(required)</span> <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name <span class="required">(required)</span></label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="url" value="" /></div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="WordPress.com Logo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" />
+						<p class="comment-form-posting-as pa-wordpress">
+			<strong></strong>
+			You are commenting using your WordPress.com account.			<span class="comment-form-log-out">
+				(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;
+				<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)
+			</span>
+			<span class="pa-icon"><svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24" ><rect x="0" fill="none" width="24" height="24"/><g><path fill="#0087be" d="M12.158 12.786l-2.698 7.84c.806.236 1.657.365 2.54.365 1.047 0 2.05-.18 2.986-.51-.024-.037-.046-.078-.065-.123l-2.762-7.57zM3.008 12c0 3.56 2.07 6.634 5.068 8.092L3.788 8.342c-.5 1.117-.78 2.354-.78 3.658zm15.06-.454c0-1.112-.398-1.88-.74-2.48-.456-.74-.883-1.368-.883-2.11 0-.825.627-1.595 1.51-1.595.04 0 .078.006.116.008-1.598-1.464-3.73-2.36-6.07-2.36-3.14 0-5.904 1.613-7.512 4.053.21.008.41.012.58.012.94 0 2.395-.114 2.395-.114.484-.028.54.684.057.74 0 0-.487.058-1.03.086l3.275 9.74 1.968-5.902-1.4-3.838c-.485-.028-.944-.085-.944-.085-.486-.03-.43-.77.056-.742 0 0 1.484.114 2.368.114.94 0 2.397-.114 2.397-.114.486-.028.543.684.058.74 0 0-.488.058-1.03.086l3.25 9.665.897-2.997c.456-1.17.684-2.137.684-2.907zm1.82-3.86c.04.286.06.593.06.924 0 .912-.17 1.938-.683 3.22l-2.746 7.94c2.672-1.558 4.47-4.454 4.47-7.77 0-1.564-.4-3.033-1.1-4.314zM12 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></g></svg></span>
+		</p>
+					</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-googleplus" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Google+ photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="googleplus_avatar" id="googleplus-avatar" class="comment-meta-googleplus" value="" />
+				<input type="hidden" name="googleplus_user_id" id="googleplus-user_id" class="comment-meta-googleplus" value="" />
+				<input type="hidden" name="googleplus_access_token" id="googleplus-access_token" class="comment-meta-googleplus" value="" />
+						<p class="comment-form-posting-as pa-googleplus">
+			<strong></strong>
+			You are commenting using your Google+ account.			<span class="comment-form-log-out">
+				(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'googleplus' );">Log&nbsp;Out</a>&nbsp;/&nbsp;
+				<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)
+			</span>
+			<span class="pa-icon"><svg xmlns="http://www.w3.org/2000/svg" role="presentation" x="0px" y="0px" viewBox="0 0 60 60" ><path fill="#519bf7" d="M56.3,30c0,-1.6 -0.2,-3.4 -0.6,-5h-3.1H42.2H30v10.6h14.8C44,39.3 42,42 39.1,43.9l8.8,6.8C53,46 56.3,39 56.3,30z" /><path fill="#3db366" d="M30,57.5c6.7,0 13.1,-2.4 17.9,-6.8l-8.8,-6.8c-2.5,1.6 -5.6,2.4 -9.1,2.4c-7.2,0 -13.3,-4.7 -15.4,-11.2l-9.3,7.1C9.8,51.3 19.1,57.5 30,57.5z" /><path fill="#fdc600" d="M5.3,42.2l9.3,-7.1c-0.5,-1.6 -0.8,-3.3 -0.8,-5.1s0.3,-3.5 0.8,-5.1l-9.3,-7.1C3.5,21.5 2.5,25.6 2.5,30S3.5,38.5 5.3,42.2z" /><path fill="#f15b44" d="M40.1,17.4l8,-8C43.3,5.1 37,2.5 30,2.5C19.1,2.5 9.8,8.7 5.3,17.8l9.3,7.1c2.1,-6.5 8.2,-11.1 15.4,-11.1C33.9,13.7 37.4,15.1 40.1,17.4z" /></svg></span>
+		</p>
+					</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Twitter picture" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" />
+						<p class="comment-form-posting-as pa-twitter">
+			<strong></strong>
+			You are commenting using your Twitter account.			<span class="comment-form-log-out">
+				(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;
+				<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)
+			</span>
+			<span class="pa-icon"><svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24" ><rect x="0" fill="none" width="24" height="24"/><g><path fill="#1DA1F2" d="M22.23 5.924c-.736.326-1.527.547-2.357.646.847-.508 1.498-1.312 1.804-2.27-.793.47-1.67.812-2.606.996C18.325 4.498 17.258 4 16.078 4c-2.266 0-4.103 1.837-4.103 4.103 0 .322.036.635.106.935-3.41-.17-6.433-1.804-8.457-4.287-.353.607-.556 1.312-.556 2.064 0 1.424.724 2.68 1.825 3.415-.673-.022-1.305-.207-1.86-.514v.052c0 1.988 1.415 3.647 3.293 4.023-.344.095-.707.145-1.08.145-.265 0-.522-.026-.773-.074.522 1.63 2.038 2.817 3.833 2.85-1.404 1.1-3.174 1.757-5.096 1.757-.332 0-.66-.02-.98-.057 1.816 1.164 3.973 1.843 6.29 1.843 7.547 0 11.675-6.252 11.675-11.675 0-.178-.004-.355-.012-.53.802-.578 1.497-1.3 2.047-2.124z"/></g></svg></span>
+		</p>
+					</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="https://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=identicon&amp;forcedefault=y&amp;r=G" alt="Facebook photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" />
+						<p class="comment-form-posting-as pa-facebook">
+			<strong></strong>
+			You are commenting using your Facebook account.			<span class="comment-form-log-out">
+				(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;
+				<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)
+			</span>
+			<span class="pa-icon"><svg xmlns="http://www.w3.org/2000/svg" role="presentation" viewBox="0 0 24 24" ><rect x="0" fill="none" width="24" height="24"/><g><path fill="#3B5998" d="M20.007 3H3.993C3.445 3 3 3.445 3 3.993v16.013c0 .55.445.994.993.994h8.62v-6.97H10.27V11.31h2.346V9.31c0-2.325 1.42-3.59 3.494-3.59.993 0 1.847.073 2.096.106v2.43h-1.438c-1.128 0-1.346.537-1.346 1.324v1.734h2.69l-.35 2.717h-2.34V21h4.587c.548 0 .993-.445.993-.993V3.993c0-.548-.445-.993-.993-.993z"/></g></svg></span>
+		</p>
+					</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+
+</div>
+
+<script type="text/javascript">
+var highlander_expando_javascript = function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+}
+jQuery(document).ready( highlander_expando_javascript );
+</script>
+
+<div id="comment-form-subscribe">
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;"/> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of new comments via email.</label></p></div>
+
+
+
+
+<p class="form-submit"><input name="submit" type="submit" id="comment-submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='398' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="89cfd8ac74" /></p>
+<input type="hidden" name="genseq" value="1540871228" />
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="100"/></p>			</form>
+			</div><!-- #respond -->
+	<div style="clear: both"></div>
+</div><!-- #comments .comments-area -->
+
+		
+		</div><!-- #content -->
+	</div><!-- #primary .site-content -->
+
+
+	<div id="secondary" class="widget-area" role="complementary">
+		<aside id="wp_tag_cloud-2" class="widget wp_widget_tag_cloud"><h1 class="widget-title"></h1><div style="overflow:hidden"><a href="https://daverog.wordpress.com/tag/aggregation/" class="tag-cloud-link tag-link-20431 tag-link-position-1" style="font-size: 13px;" aria-label="aggregation (1 item)">aggregation</a>
+<a href="https://daverog.wordpress.com/tag/agile/" class="tag-cloud-link tag-link-11287 tag-link-position-2" style="font-size: 13px;" aria-label="agile (1 item)">agile</a>
+<a href="https://daverog.wordpress.com/tag/apis/" class="tag-cloud-link tag-link-40428 tag-link-position-3" style="font-size: 13px;" aria-label="APIs (1 item)">APIs</a>
+<a href="https://daverog.wordpress.com/tag/bbc/" class="tag-cloud-link tag-link-2988 tag-link-position-4" style="font-size: 13px;" aria-label="bbc (1 item)">bbc</a>
+<a href="https://daverog.wordpress.com/tag/closures/" class="tag-cloud-link tag-link-111252 tag-link-position-5" style="font-size: 13px;" aria-label="closures (1 item)">closures</a>
+<a href="https://daverog.wordpress.com/tag/cms/" class="tag-cloud-link tag-link-646 tag-link-position-6" style="font-size: 13px;" aria-label="CMS (1 item)">CMS</a>
+<a href="https://daverog.wordpress.com/tag/collaborative-ontologies/" class="tag-cloud-link tag-link-37407712 tag-link-position-7" style="font-size: 13px;" aria-label="collaborative ontologies (1 item)">collaborative ontologies</a>
+<a href="https://daverog.wordpress.com/tag/content-management/" class="tag-cloud-link tag-link-39864 tag-link-position-8" style="font-size: 13px;" aria-label="content management (1 item)">content management</a>
+<a href="https://daverog.wordpress.com/tag/content-modelling/" class="tag-cloud-link tag-link-10727154 tag-link-position-9" style="font-size: 13px;" aria-label="content modelling (1 item)">content modelling</a>
+<a href="https://daverog.wordpress.com/tag/document-store/" class="tag-cloud-link tag-link-12120491 tag-link-position-10" style="font-size: 13px;" aria-label="document store (1 item)">document store</a>
+<a href="https://daverog.wordpress.com/tag/eip/" class="tag-cloud-link tag-link-701922 tag-link-position-11" style="font-size: 13px;" aria-label="EIP (1 item)">EIP</a>
+<a href="https://daverog.wordpress.com/tag/embedded-ontologies/" class="tag-cloud-link tag-link-172162255 tag-link-position-12" style="font-size: 13px;" aria-label="embedded ontologies (1 item)">embedded ontologies</a>
+<a href="https://daverog.wordpress.com/tag/erlang/" class="tag-cloud-link tag-link-214614 tag-link-position-13" style="font-size: 13px;" aria-label="Erlang (1 item)">Erlang</a>
+<a href="https://daverog.wordpress.com/tag/facebook/" class="tag-cloud-link tag-link-81819 tag-link-position-14" style="font-size: 13px;" aria-label="Facebook (1 item)">Facebook</a>
+<a href="https://daverog.wordpress.com/tag/github/" class="tag-cloud-link tag-link-5603054 tag-link-position-15" style="font-size: 13px;" aria-label="GitHub (1 item)">GitHub</a>
+<a href="https://daverog.wordpress.com/tag/graph/" class="tag-cloud-link tag-link-18224 tag-link-position-16" style="font-size: 13px;" aria-label="Graph (1 item)">Graph</a>
+<a href="https://daverog.wordpress.com/tag/guardian/" class="tag-cloud-link tag-link-25718 tag-link-position-17" style="font-size: 13px;" aria-label="guardian (1 item)">guardian</a>
+<a href="https://daverog.wordpress.com/tag/hackday/" class="tag-cloud-link tag-link-239073 tag-link-position-18" style="font-size: 13px;" aria-label="hackday (1 item)">hackday</a>
+<a href="https://daverog.wordpress.com/tag/java/" class="tag-cloud-link tag-link-1017 tag-link-position-19" style="font-size: 19.666666666667px;" aria-label="Java (4 items)">Java</a>
+<a href="https://daverog.wordpress.com/tag/javascipt/" class="tag-cloud-link tag-link-1668778 tag-link-position-20" style="font-size: 13px;" aria-label="Javascipt (1 item)">Javascipt</a>
+<a href="https://daverog.wordpress.com/tag/javawug/" class="tag-cloud-link tag-link-32786421 tag-link-position-21" style="font-size: 13px;" aria-label="javawug (1 item)">javawug</a>
+<a href="https://daverog.wordpress.com/tag/jdk/" class="tag-cloud-link tag-link-321679 tag-link-position-22" style="font-size: 13px;" aria-label="JDK (1 item)">JDK</a>
+<a href="https://daverog.wordpress.com/tag/jena/" class="tag-cloud-link tag-link-218490 tag-link-position-23" style="font-size: 13px;" aria-label="Jena (1 item)">Jena</a>
+<a href="https://daverog.wordpress.com/tag/jigsaw/" class="tag-cloud-link tag-link-310545 tag-link-position-24" style="font-size: 13px;" aria-label="jigsaw (1 item)">jigsaw</a>
+<a href="https://daverog.wordpress.com/tag/json/" class="tag-cloud-link tag-link-72721 tag-link-position-25" style="font-size: 13px;" aria-label="JSON (1 item)">JSON</a>
+<a href="https://daverog.wordpress.com/tag/json-ld/" class="tag-cloud-link tag-link-61797041 tag-link-position-26" style="font-size: 13px;" aria-label="JSON-LD (1 item)">JSON-LD</a>
+<a href="https://daverog.wordpress.com/tag/jsunit/" class="tag-cloud-link tag-link-1410658 tag-link-position-27" style="font-size: 13px;" aria-label="jsUnit (1 item)">jsUnit</a>
+<a href="https://daverog.wordpress.com/tag/jvm/" class="tag-cloud-link tag-link-461295 tag-link-position-28" style="font-size: 13px;" aria-label="JVM (1 item)">JVM</a>
+<a href="https://daverog.wordpress.com/tag/lean/" class="tag-cloud-link tag-link-108946 tag-link-position-29" style="font-size: 13px;" aria-label="lean (1 item)">lean</a>
+<a href="https://daverog.wordpress.com/tag/linked-data/" class="tag-cloud-link tag-link-4069859 tag-link-position-30" style="font-size: 21px;" aria-label="linked data (5 items)">linked data</a>
+<a href="https://daverog.wordpress.com/tag/marklogic/" class="tag-cloud-link tag-link-4232101 tag-link-position-31" style="font-size: 13px;" aria-label="MarkLogic (1 item)">MarkLogic</a>
+<a href="https://daverog.wordpress.com/tag/maven/" class="tag-cloud-link tag-link-47862 tag-link-position-32" style="font-size: 13px;" aria-label="Maven (1 item)">Maven</a>
+<a href="https://daverog.wordpress.com/tag/minimal-viable-ontology/" class="tag-cloud-link tag-link-172162260 tag-link-position-33" style="font-size: 13px;" aria-label="minimal viable ontology (1 item)">minimal viable ontology</a>
+<a href="https://daverog.wordpress.com/tag/minimal-viable-product/" class="tag-cloud-link tag-link-24457925 tag-link-position-34" style="font-size: 13px;" aria-label="minimal viable product (1 item)">minimal viable product</a>
+<a href="https://daverog.wordpress.com/tag/mocking/" class="tag-cloud-link tag-link-438515 tag-link-position-35" style="font-size: 16px;" aria-label="Mocking (2 items)">Mocking</a>
+<a href="https://daverog.wordpress.com/tag/mockito/" class="tag-cloud-link tag-link-3992763 tag-link-position-36" style="font-size: 16px;" aria-label="Mockito (2 items)">Mockito</a>
+<a href="https://daverog.wordpress.com/tag/nosql/" class="tag-cloud-link tag-link-22319505 tag-link-position-37" style="font-size: 16px;" aria-label="NoSQL (2 items)">NoSQL</a>
+<a href="https://daverog.wordpress.com/tag/ontology/" class="tag-cloud-link tag-link-70002 tag-link-position-38" style="font-size: 13px;" aria-label="ontology (1 item)">ontology</a>
+<a href="https://daverog.wordpress.com/tag/powermock/" class="tag-cloud-link tag-link-31344643 tag-link-position-39" style="font-size: 13px;" aria-label="PowerMock (1 item)">PowerMock</a>
+<a href="https://daverog.wordpress.com/tag/processing/" class="tag-cloud-link tag-link-33811 tag-link-position-40" style="font-size: 13px;" aria-label="processing (1 item)">processing</a>
+<a href="https://daverog.wordpress.com/tag/processing-rdf/" class="tag-cloud-link tag-link-59319306 tag-link-position-41" style="font-size: 13px;" aria-label="Processing RDF (1 item)">Processing RDF</a>
+<a href="https://daverog.wordpress.com/tag/qcon/" class="tag-cloud-link tag-link-1943787 tag-link-position-42" style="font-size: 13px;" aria-label="QCon (1 item)">QCon</a>
+<a href="https://daverog.wordpress.com/tag/qconlondon/" class="tag-cloud-link tag-link-53072428 tag-link-position-43" style="font-size: 13px;" aria-label="QConLondon (1 item)">QConLondon</a>
+<a href="https://daverog.wordpress.com/tag/qconlondon2011/" class="tag-cloud-link tag-link-53072429 tag-link-position-44" style="font-size: 13px;" aria-label="QConLondon2011 (1 item)">QConLondon2011</a>
+<a href="https://daverog.wordpress.com/tag/rdf/" class="tag-cloud-link tag-link-24141 tag-link-position-45" style="font-size: 21px;" aria-label="rdf (5 items)">rdf</a>
+<a href="https://daverog.wordpress.com/tag/rdf-to-json/" class="tag-cloud-link tag-link-125555591 tag-link-position-46" style="font-size: 13px;" aria-label="RDF to JSON (1 item)">RDF to JSON</a>
+<a href="https://daverog.wordpress.com/tag/rdf-to-xml/" class="tag-cloud-link tag-link-125555589 tag-link-position-47" style="font-size: 13px;" aria-label="RDF to XML (1 item)">RDF to XML</a>
+<a href="https://daverog.wordpress.com/tag/rdf-tree/" class="tag-cloud-link tag-link-125555585 tag-link-position-48" style="font-size: 13px;" aria-label="RDF Tree (1 item)">RDF Tree</a>
+<a href="https://daverog.wordpress.com/tag/rest/" class="tag-cloud-link tag-link-15314 tag-link-position-49" style="font-size: 13px;" aria-label="REST (1 item)">REST</a>
+<a href="https://daverog.wordpress.com/tag/rhino/" class="tag-cloud-link tag-link-238847 tag-link-position-50" style="font-size: 13px;" aria-label="Rhino (1 item)">Rhino</a>
+<a href="https://daverog.wordpress.com/tag/rhinounit/" class="tag-cloud-link tag-link-19584194 tag-link-position-51" style="font-size: 13px;" aria-label="RhinoUnit (1 item)">RhinoUnit</a>
+<a href="https://daverog.wordpress.com/tag/scale/" class="tag-cloud-link tag-link-260428 tag-link-position-52" style="font-size: 13px;" aria-label="Scale (1 item)">Scale</a>
+<a href="https://daverog.wordpress.com/tag/semantic-technology/" class="tag-cloud-link tag-link-1109634 tag-link-position-53" style="font-size: 13px;" aria-label="semantic technology (1 item)">semantic technology</a>
+<a href="https://daverog.wordpress.com/tag/semantic-web/" class="tag-cloud-link tag-link-10203 tag-link-position-54" style="font-size: 19.666666666667px;" aria-label="Semantic Web (4 items)">Semantic Web</a>
+<a href="https://daverog.wordpress.com/tag/semtechbiz/" class="tag-cloud-link tag-link-81019055 tag-link-position-55" style="font-size: 13px;" aria-label="SemTechBiz (1 item)">SemTechBiz</a>
+<a href="https://daverog.wordpress.com/tag/server-side-javascript/" class="tag-cloud-link tag-link-21121553 tag-link-position-56" style="font-size: 13px;" aria-label="server-side Javascript (1 item)">server-side Javascript</a>
+<a href="https://daverog.wordpress.com/tag/sinon-js/" class="tag-cloud-link tag-link-57435940 tag-link-position-57" style="font-size: 13px;" aria-label="Sinon.js (1 item)">Sinon.js</a>
+<a href="https://daverog.wordpress.com/tag/software/" class="tag-cloud-link tag-link-581 tag-link-position-58" style="font-size: 13px;" aria-label="software (1 item)">software</a>
+<a href="https://daverog.wordpress.com/tag/software-quality/" class="tag-cloud-link tag-link-246705 tag-link-position-59" style="font-size: 13px;" aria-label="Software Quality (1 item)">Software Quality</a>
+<a href="https://daverog.wordpress.com/tag/sparql/" class="tag-cloud-link tag-link-24140 tag-link-position-60" style="font-size: 18px;" aria-label="sparql (3 items)">sparql</a>
+<a href="https://daverog.wordpress.com/tag/sparql-endpoint/" class="tag-cloud-link tag-link-53799873 tag-link-position-61" style="font-size: 13px;" aria-label="SPARQL Endpoint (1 item)">SPARQL Endpoint</a>
+<a href="https://daverog.wordpress.com/tag/tdd/" class="tag-cloud-link tag-link-76604 tag-link-position-62" style="font-size: 19.666666666667px;" aria-label="TDD (4 items)">TDD</a>
+<a href="https://daverog.wordpress.com/tag/triple-store/" class="tag-cloud-link tag-link-1347789 tag-link-position-63" style="font-size: 13px;" aria-label="triple store (1 item)">triple store</a>
+<a href="https://daverog.wordpress.com/tag/tripliser/" class="tag-cloud-link tag-link-59319307 tag-link-position-64" style="font-size: 13px;" aria-label="Tripliser (1 item)">Tripliser</a>
+<a href="https://daverog.wordpress.com/tag/turtle/" class="tag-cloud-link tag-link-356151 tag-link-position-65" style="font-size: 13px;" aria-label="turtle (1 item)">turtle</a>
+<a href="https://daverog.wordpress.com/tag/unit-testing/" class="tag-cloud-link tag-link-3882 tag-link-position-66" style="font-size: 18px;" aria-label="Unit testing (3 items)">Unit testing</a>
+<a href="https://daverog.wordpress.com/tag/visualisation/" class="tag-cloud-link tag-link-8651 tag-link-position-67" style="font-size: 13px;" aria-label="visualisation (1 item)">visualisation</a>
+<a href="https://daverog.wordpress.com/tag/xml/" class="tag-cloud-link tag-link-6852 tag-link-position-68" style="font-size: 16px;" aria-label="xml (2 items)">xml</a>
+<a href="https://daverog.wordpress.com/tag/xml2rdf/" class="tag-cloud-link tag-link-14525500 tag-link-position-69" style="font-size: 13px;" aria-label="xml2rdf (1 item)">xml2rdf</a>
+<a href="https://daverog.wordpress.com/tag/xmltordf/" class="tag-cloud-link tag-link-59319308 tag-link-position-70" style="font-size: 13px;" aria-label="XMLtoRDF (1 item)">XMLtoRDF</a>
+<a href="https://daverog.wordpress.com/tag/xml-to-rdf/" class="tag-cloud-link tag-link-14525498 tag-link-position-71" style="font-size: 13px;" aria-label="XML to RDF (1 item)">XML to RDF</a>
+<a href="https://daverog.wordpress.com/tag/xslt/" class="tag-cloud-link tag-link-11437 tag-link-position-72" style="font-size: 13px;" aria-label="XSLT (1 item)">XSLT</a></div></aside><aside id="archives-3" class="widget widget_archive"><h1 class="widget-title">Archives</h1>		<ul>
+				<li><a href='https://daverog.wordpress.com/2013/06/'>June 2013</a></li>
+	<li><a href='https://daverog.wordpress.com/2013/05/'>May 2013</a></li>
+	<li><a href='https://daverog.wordpress.com/2012/11/'>November 2012</a></li>
+	<li><a href='https://daverog.wordpress.com/2012/10/'>October 2012</a></li>
+	<li><a href='https://daverog.wordpress.com/2011/06/'>June 2011</a></li>
+	<li><a href='https://daverog.wordpress.com/2011/05/'>May 2011</a></li>
+	<li><a href='https://daverog.wordpress.com/2011/03/'>March 2011</a></li>
+	<li><a href='https://daverog.wordpress.com/2010/09/'>September 2010</a></li>
+	<li><a href='https://daverog.wordpress.com/2010/03/'>March 2010</a></li>
+	<li><a href='https://daverog.wordpress.com/2010/02/'>February 2010</a></li>
+	<li><a href='https://daverog.wordpress.com/2009/12/'>December 2009</a></li>
+	<li><a href='https://daverog.wordpress.com/2009/08/'>August 2009</a></li>
+		</ul>
+			</aside>		<div class="wpcnt">
+			<div class="wpa wpwidesky">
+				<span class="wpa-about">Advertisements</span>
+				<div class="u">
+							<div style="padding-bottom:15px;width:160px;height:600px;">
+		<div id="atatags-286348-5bd7d43cd9a87">
+			<script type="text/javascript">
+			__ATA.cmd.push(function() {
+				__ATA.initSlot('atatags-286348-5bd7d43cd9a87',  {
+					collapseEmpty: 'before',
+					sectionId: '286348',
+					width: 160,
+					height: 600
+				});
+			});
+			</script>
+		</div></div>
+				</div>
+				
+			</div>
+		</div>	</div><!-- #secondary -->
+
+
+		</div><!-- #main -->
+
+		<footer id="colophon" class="site-footer" role="contentinfo">
+			
+			<div class="site-info">
+				<a href="https://wordpress.com/?ref=footer_website">Create a free website or blog at WordPress.com.</a>
+				
+							</div><!-- .site-info -->
+		</footer><!-- #colophon .site-footer -->
+	</div><!-- #page-liner -->
+</div><!-- #page .hfeed .site -->
+
+<!--  -->
+<script type='text/javascript' src='//0.gravatar.com/js/gprofiles.js?ver=201844y'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s1.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1380573781h'></script>
+
+	<script>
+		//initialize and attach hovercards to all gravatars
+		jQuery( document ).ready( function( $ ) {
+
+			if (typeof Gravatar === "undefined"){
+				return;
+			}
+
+			if ( typeof Gravatar.init !== "function" ) {
+				return;
+			}			
+
+			Gravatar.profile_cb = function( hash, id ) {
+				WPGroHo.syncProfileData( hash, id );
+			};
+			Gravatar.my_hash = WPGroHo.my_hash;
+			Gravatar.init( 'body', '#wp-admin-bar-my-account' );
+		});
+	</script>
+
+		<div style="display:none">
+	<div class="grofile-hash-map-31ffca3f66c164a659c008aa7f247146">
+	</div>
+	<div class="grofile-hash-map-14952d286993256104c7fc2584b1ee47">
+	</div>
+	<div class="grofile-hash-map-31b98ff0e8cd130bd1b18e81d71e4d2d">
+	</div>
+	<div class="grofile-hash-map-b228a3a03c8530646b8c94c59c95302e">
+	</div>
+	<div class="grofile-hash-map-1950cc2227b99d9f090a5b98b01dd418">
+	</div>
+	<div class="grofile-hash-map-27dc4172f2425b1e723af4d9f63f6baa">
+	</div>
+	<div class="grofile-hash-map-93faea9af3ed58436b8201b3dca54b55">
+	</div>
+	<div class="grofile-hash-map-74299d32f683e43dd6abb4107c67aa74">
+	</div>
+	<div class="grofile-hash-map-74299d32f683e43dd6abb4107c67aa74">
+	</div>
+	<div class="grofile-hash-map-5de5c0912d33f7d91aea6335c8eeaa9b">
+	</div>
+	<div class="grofile-hash-map-7b9e7e586a133fad435866986b04e0f9">
+	</div>
+	<div class="grofile-hash-map-88eaf0fcb11e47f10b8799747d85a562">
+	</div>
+	<div class="grofile-hash-map-30aba436dc074cf6a695ed5b4db0035d">
+	</div>
+	</div>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"https:\/\/daverog.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"https:\/\/daverog.wordpress.com\/wp-login.php?action=logout&_wpnonce=2d53fcca12","homeURL":"https:\/\/daverog.wordpress.com\/","postID":"398","gravDefault":"identicon","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"0","userIsLoggedIn":"","isJetpack":"","text_direction":"ltr"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s2.wp.com/_static/??/wp-content/js/jquery/jquery.autoresize.js,/wp-content/mu-plugins/highlander-comments/script.js?m=1521806916j'></script>
+<div class="widget widget_eu_cookie_law_widget"><div
+	class="hide-on-button ads-active"
+	data-hide-timeout="30"
+	data-consent-expiration="180"
+	id="eu-cookie-law"
+>
+	<form method="post">
+		<input type="submit" value="Close and accept" class="accept" />
+
+		Privacy &amp; Cookies: This site uses cookies. By continuing to use this website, you agree to their use. <br />
+To find out more, including how to control cookies, see here:
+		<a href="https://automattic.com/cookies" >
+			Cookie Policy		</a>
+ </form>
+</div>
+</div><script type='text/javascript'>
+/* <![CDATA[ */
+var actionbardata = {"siteID":"8782916","siteName":"Dave's Blog","siteURL":"http:\/\/daverog.wordpress.com","icon":"<img alt='' src='https:\/\/s2.wp.com\/i\/logo\/wpcom-gray-white.png' class='avatar avatar-50' height='50' width='50' \/>","canManageOptions":"","canCustomizeSite":"","isFollowing":"","themeSlug":"pub\/able","signupURL":"https:\/\/wordpress.com\/start\/","loginURL":"https:\/\/daverog.wordpress.com\/wp-login.php?redirect_to=https%3A%2F%2Fdaverog.wordpress.com%2F2013%2F06%2F04%2Fthe-enduring-myth-of-the-sparql-endpoint%2F","themeURL":"","xhrURL":"https:\/\/daverog.wordpress.com\/wp-admin\/admin-ajax.php","nonce":"af3cf62df0","isSingular":"1","isFolded":"","isLoggedIn":"","isMobile":"","subscribeNonce":"<input type=\"hidden\" id=\"_wpnonce\" name=\"_wpnonce\" value=\"a022bfd8be\" \/>","referer":"https:\/\/daverog.wordpress.com\/2013\/06\/04\/the-enduring-myth-of-the-sparql-endpoint\/","canFollow":"1","feedID":"3375879","statusMessage":"","customizeLink":"https:\/\/daverog.wordpress.com\/wp-admin\/customize.php?url=https%3A%2F%2Fdaverog.wordpress.com%2F2013%2F06%2F04%2Fthe-enduring-myth-of-the-sparql-endpoint%2F","postID":"398","shortlink":"https:\/\/wp.me\/pAQPW-6q","canEditPost":"","editLink":"https:\/\/wordpress.com\/post\/daverog.wordpress.com\/398","statsLink":"https:\/\/wordpress.com\/stats\/post\/398\/daverog.wordpress.com","i18n":{"view":"View site","follow":"Follow","following":"Following","edit":"Edit","login":"Log in","signup":"Sign up","customize":"Customize","report":"Report this content","themeInfo":"Get theme: Able","shortlink":"Copy shortlink","copied":"Copied","followedText":"New posts from this site will now appear in your <a href=\"https:\/\/wordpress.com\/\">Reader<\/a>","foldBar":"Collapse this bar","unfoldBar":"Expand this bar","editSubs":"Manage subscriptions","viewReader":"View site in Reader","viewReadPost":"View post in Reader","subscribe":"Sign me up","enterEmail":"Enter your email address","followers":"","alreadyUser":"Already have a WordPress.com account? <a href=\"https:\/\/daverog.wordpress.com\/wp-login.php?redirect_to=https%3A%2F%2Fdaverog.wordpress.com%2F2013%2F06%2F04%2Fthe-enduring-myth-of-the-sparql-endpoint%2F\">Log in now.<\/a>","stats":"Stats"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://s0.wp.com/_static/??-eJyVkMFOAzEMRH+IrKErVPWA+BTkTUzrXTsJidMtf0/2QIV6WImbNfM8YxnW7HyKRtFgrhDoyp7ybZjrE/yxtLks7cyxgvBCFb4aNbpgDELlEbYLaUdymwAnoS23Koo4pdh+YY5eWuhYd33SbpkrlOV7UI479SuHM1kFat1NC5MTXMFIs6DRg76Tg6H3uAkLKFaj0ieXrlQKb0fdtX8mWEG/1L0lb5zitnSf9uiFq5K5cXiGj/4x+ExFO/+uby+v4+F0PIyn4/wDUvenww=='></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script>	<script type="text/javascript">
+	var skimlinks_pub_id = "725X584219"
+	var skimlinks_sitename = "daverog.wordpress.com";
+	</script>
+	<script type="text/javascript" defer src="https://s.skimresources.com/js/725X1342.skimlinks.js"></script>		<iframe src='https://widgets.wp.com/likes/master.html?ver=20180319#ver=20180319' scrolling='no' id='likes-master' name='likes-master' style='display:none;'></iframe>
+		<div id='likes-other-gravatars'><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+<script src="//stats.wp.com/w.js?56" type="text/javascript" async defer></script>
+<script type="text/javascript">
+_tkq = window._tkq || [];
+_stq = window._stq || [];
+_tkq.push(['storeContext', {'blog_id':'8782916','blog_tz':'0','user_lang':'en','blog_lang':'en','user_id':'0'}]);
+_stq.push(['view', {'blog':'8782916','v':'wpcom','tz':'0','user_id':'0','post':'398','subd':'daverog'}]);
+_stq.push(['extra', {'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdWFnNncxc1tjZG9XVXhRPUJGYUFhNUdZYm9PUk1+bGN+aFdlfk1KQk9IL3plODUuUkdQNURqLjFhbDBNcHpzNXROSV92ODJRdXN3YSZDUm5raVlbLWl6WFdQdUlpVD9MPzBFRmkrRUZHZz1XcXVzR08lMHJMfk44c1taPXo1aSxMN1tvLXxuN2wsRnx3ZGNmTD9fNEpRQ0JJJVJPfmtVWjJqWiZmcmZZSnctdG1rJVNta2RJV2htMC9NSS5qMU8mbkUyYTlYLTZKX01NfCZ6TzMveURNQXJXP35lT3ExZzJdeG1mcEdyRzhzdz02cWV+a1I4a1g='}]);
+_stq.push([ 'clickTrackerInit', '8782916', '398' ]);
+	</script>
+<noscript><img src="https://pixel.wp.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+		<script>
+			jQuery( '#resend-verifyemail' ).on( 'click', function(e) {
+				var link = jQuery(e.target);
+
+				e.preventDefault();
+
+				var r = jQuery.ajax( {
+					type: 'POST',
+					url: '/wp-admin/admin-ajax.php',
+					data: {
+						'action': 'resend_verify_email',
+						'_wpnonce': link.data( 'nonce' )
+					}
+				} );
+
+				setTimeout( function() {
+					link.hide();
+					link.after( '<strong id="email-sent">Email Sent</strong>' );
+				}, 200 );
+
+				setTimeout( function() {
+					jQuery( "strong#email-sent" ).hide().remove();
+					link.show();
+				}, 4000 );
+			} );
+		</script>
+	<script>
+if ( 'object' === typeof wpcom_mobile_user_agent_info ) {
+
+	wpcom_mobile_user_agent_info.init();
+	var mobileStatsQueryString = "";
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedPlatformName )
+		mobileStatsQueryString += "&x_" + 'mobile_platforms' + '=' + wpcom_mobile_user_agent_info.matchedPlatformName;
+	
+	if( false !== wpcom_mobile_user_agent_info.matchedUserAgentName )
+		mobileStatsQueryString += "&x_" + 'mobile_devices' + '=' + wpcom_mobile_user_agent_info.matchedUserAgentName;
+	
+	if( wpcom_mobile_user_agent_info.isIPad() )
+		mobileStatsQueryString += "&x_" + 'ipad_views' + '=' + 'views';
+
+	if( "" != mobileStatsQueryString ) {
+		new Image().src = document.location.protocol + '//pixel.wp.com/g.gif?v=wpcom-no-pv' + mobileStatsQueryString + '&baba=' + Math.random();
+	}
+	
+}
+</script>
+</body>
+</html>
